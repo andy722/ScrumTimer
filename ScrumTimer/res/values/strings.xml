@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ScrumTimer</string>
+
+    <string name="yes">Yep</string>
+    <string name="no">Nope</string>
+
+
+    <string name="interrupt_caption">Interrupt meeting</string>
+    <string name="interrupt_text">Are you sure? The current progress will be lost.</string>
+
+
+    <string name="finish_caption">Hurray!</string>
+    <string name="finish_text">Stand up is over, and it only took about %d minutes</string>
+    <string name="finish_okay">Get back to work</string>
+
+
+    <string name="finish">Finish</string>
+    <string name="next">Next</string>
+
+    <string name="start">Start</string>
+
+    <string name="speakers_left">%d to go</string>
+
+    <string name="speakers_none">Nobody spoke yet,</string>
+    <string name="speakers_finished">%d finished,</string>
+
+
+</resources>

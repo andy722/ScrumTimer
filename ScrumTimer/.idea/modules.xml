@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../johannilsson-android-actionbar-1a98f28/actionbar/Actionbar.iml" filepath="$PROJECT_DIR$/../johannilsson-android-actionbar-1a98f28/actionbar/Actionbar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ScrumTimer.iml" filepath="$PROJECT_DIR$/ScrumTimer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../android-wheel/wheel/Wheel.iml" filepath="$PROJECT_DIR$/../android-wheel/wheel/Wheel.iml" />
+    </modules>
+  </component>
+</project>
+

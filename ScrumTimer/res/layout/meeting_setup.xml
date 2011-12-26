@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res/com.abelsky.scrumtimer"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="@color/app_background">
+
+        <com.markupartist.android.widget.ActionBar
+                android:id="@+id/actionbar"
+                app:title="Open the meeting"
+                style="@style/ScrumTimerActionBar"
+                />
+
+        <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Team of ..."
+                android:padding="10sp"
+                />
+
+        <!--android:layout_height="52sp"-->
+        <kankan.wheel.widget.WheelView
+                android:id="@+id/teamSize"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_gravity="center_vertical"
+                android:padding="10sp"
+                />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="... will be meeting for "
+                android:padding="10sp"
+                />
+
+        <kankan.wheel.widget.WheelView
+                android:id="@+id/totalTime"
+                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_gravity="center_vertical"
+                android:padding="10sp"
+                />
+    <!--</LinearLayout>-->
+
+    <Button
+            android:id="@+id/startButton"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:background="@drawable/green_round_button"
+
+            android:text="@string/start"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_main"
+
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:padding="10sp"
+            />
+
+</LinearLayout>
+
