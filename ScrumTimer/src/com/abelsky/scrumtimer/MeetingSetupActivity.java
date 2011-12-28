@@ -7,9 +7,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import com.abelsky.scrumtimer.model.MeetingOptions;
+import com.abelsky.scrumtimer.view.Thingies;
 import com.markupartist.android.widget.ActionBar;
 import kankan.wheel.widget.OnWheelChangedListener;
 import kankan.wheel.widget.WheelView;
+
+import static com.abelsky.scrumtimer.view.Thingies.TOAST_TIME_MS;
 
 /**
  * Set up and start the meeting.
@@ -72,7 +75,7 @@ public class MeetingSetupActivity extends Activity {
 
     private class StartMeetingListener implements View.OnClickListener {
         public void onClick(View view) {
-            // save the options to be retreived by TimerActivity.
+            // save the options to be retrieved by TimerActivity
             meetingOptions.save(MeetingSetupActivity.this);
 
             // start the meeting
@@ -85,9 +88,8 @@ public class MeetingSetupActivity extends Activity {
     private Intent createShareIntent() {
         final Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT,
-                "An app for daily stand-ups: https://market.android.com/details?id=com.abelsky.scrumtimer");
-        return Intent.createChooser(intent, "Share");
+        intent.putExtra(Intent.EXTRA_TEXT, R.string.share_text);
+        return Intent.createChooser(intent, getString(R.string.share_caption));
     }
 
     // XXX: duplicated in TimerActivity
@@ -97,7 +99,7 @@ public class MeetingSetupActivity extends Activity {
         }
 
         public void performAction(View view) {
-            Toast.makeText(MeetingSetupActivity.this, "Well, I'm kinda working on this one...", 5000).show();
+            Toast.makeText(MeetingSetupActivity.this, "Well, I'm kinda working on this one...", TOAST_TIME_MS).show();
         }
     }
 }

@@ -25,5 +25,14 @@
     <string name="speakers_none">Nobody spoke yet,</string>
     <string name="speakers_finished">%d finished,</string>
 
+    <string name="speaker_added">Another team member added</string>
+    <string name="speaker_deleted">Team member left</string>
 
+    <string name="share_text">Check it out! An app for daily stand-ups: https://market.android.com/details?id=com.abelsky.scrumtimer</string>
+    <string name="share_caption">Share</string>
+
+    <string name="menu_add">Add team member</string>
+    <string name="menu_remove">Remove team member</string>
+    <string name="menu_interrupt">Interrupt meeting</string>
+    <string name="menu_pause">Pause meeting</string>
 </resources>

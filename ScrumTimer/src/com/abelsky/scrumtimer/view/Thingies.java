@@ -10,6 +10,8 @@ import com.abelsky.scrumtimer.R;
  * @author andy
  */
 public class Thingies {
+    
+    public static int TOAST_TIME_MS = 5000;
 
     private static final long VIBRATE_INTERVAL_NS = 10 * 1000 * 1000 * 1000L;   // 10 seconds
 

@@ -6,6 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,6 +22,8 @@ import com.markupartist.android.widget.ActionBar;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.abelsky.scrumtimer.view.Thingies.TOAST_TIME_MS;
+
 /**
  * Shows timer and meeting status.
  *
@@ -29,6 +34,11 @@ public class TimerActivity extends Activity {
     private static final String TAG = "TimerActivity";
     
     private static final String TIMER_FONT_ASSET_PATH = "fonts/digital-7 (mono).ttf";
+
+    private static final int MENU_ID_ADD_TEAM_MEMBER    = 101;
+    private static final int MENU_ID_REMOVE_TEAM_MEMBER = 102;
+    private static final int MENU_ID_PAUSE              = 103;
+    private static final int MENU_ID_INTERRUPT          = 104;
 
     private MeetingState state;
     
@@ -88,11 +98,27 @@ public class TimerActivity extends Activity {
 
         nextButton = (Button) findViewById(R.id.nextButton);
         nextButton.setOnClickListener(new NextButtonClickListener());
+
+        final MeetingOptions options = MeetingOptions.load(this);
+        state = new MeetingState(options);
     }
 
     private void addTeamMember() {
         state.addTeamMember();
         updateStatus();
+
+        Toast.makeText(this, R.string.speaker_added, TOAST_TIME_MS).show();
+    }
+
+    private void removeTeamMember() {
+        if ((state.getTeamSize() - state.getCurrentSpeakerNumber()) <= 1) {
+            // nobody to remove
+
+        }
+        state.addTeamMember();
+        updateStatus();
+
+        Toast.makeText(this, R.string.speaker_deleted, TOAST_TIME_MS).show();
     }
 
     private void eachSecond() {
@@ -141,9 +167,6 @@ public class TimerActivity extends Activity {
 
     @Override
     protected void onResume() {
-        final MeetingOptions options = MeetingOptions.load(this);
-        state = new MeetingState(options);
-
         updateStatus();
         startTimer();
 
@@ -156,7 +179,15 @@ public class TimerActivity extends Activity {
 
     public void startTimer() {
         timer.purge();
-        timer.scheduleAtFixedRate(timerTask, 0, 1000);
+
+        try {
+            timer.scheduleAtFixedRate(timerTask, 0, 1000);
+            
+        } catch (IllegalStateException e) {
+            // In the case we're moved to background and then re-opened (which is probably what just happened),
+            // the task hasn't got cancelled, so its re-scheduling will disgracefully fail.
+            Log.wtf(TAG, e);
+        }
     }
 
     public void stopTimer() {
@@ -214,6 +245,40 @@ public class TimerActivity extends Activity {
                 }).show();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(Menu.NONE, MENU_ID_ADD_TEAM_MEMBER, Menu.NONE, R.string.menu_add)
+            .setIcon(R.drawable.ic_menu_add);
+
+        menu.add(Menu.NONE, MENU_ID_REMOVE_TEAM_MEMBER, Menu.NONE, R.string.menu_remove)
+            .setIcon(R.drawable.ic_menu_delete);
+
+        menu.add(Menu.NONE, MENU_ID_PAUSE, Menu.NONE, R.string.menu_pause)
+            .setIcon(R.drawable.ic_media_pause);
+
+        menu.add(Menu.NONE, MENU_ID_INTERRUPT, Menu.NONE, R.string.menu_interrupt)
+            .setIcon(R.drawable.ic_menu_close_clear_cancel);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MENU_ID_ADD_TEAM_MEMBER:
+                addTeamMember();
+                break;
+
+            case MENU_ID_REMOVE_TEAM_MEMBER:
+                addTeamMember();
+                break;
+
+            default:
+                assert false;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private class NextButtonClickListener implements View.OnClickListener {
         public void onClick(View view) {
             if (state.isLastManSpeakingNow()) {
@@ -242,7 +307,7 @@ public class TimerActivity extends Activity {
         }
 
         public void performAction(View view) {
-            Toast.makeText(TimerActivity.this, "Well, I'm kinda working on this one...", 5000).show();
+            Toast.makeText(TimerActivity.this, "Well, I'm kinda working on this one...", TOAST_TIME_MS).show();
         }
     }
 
